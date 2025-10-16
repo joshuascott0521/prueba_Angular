@@ -6,6 +6,7 @@ $error-color: #dc2626;
 
 $text-primary: #1e293b;
 $text-secondary: #64748b;
+$text-muted: #94a3b8;
 $bg-primary: #f8fafc;
 $bg-secondary: #ffffff;
 $bg-tertiary: #f1f5f9;
@@ -15,7 +16,7 @@ $border-color: #e2e8f0;
 .form-container {
   min-height: 100vh;
   background: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
 
   @media (min-width: 640px) {
     padding: 3rem 1.5rem;
@@ -23,7 +24,7 @@ $border-color: #e2e8f0;
 }
 
 .content-wrapper {
-  max-width: 56rem;
+  max-width: 48rem;
   margin: 0 auto;
 }
 
@@ -32,10 +33,11 @@ $border-color: #e2e8f0;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 1rem;
   background-color: $bg-secondary;
   color: $text-secondary;
   font-weight: 500;
+  font-size: 0.875rem;
   border: 1px solid $border-color;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -50,6 +52,7 @@ $border-color: #e2e8f0;
   &:hover {
     background-color: $bg-tertiary;
     color: $text-primary;
+    border-color: #cbd5e1;
   }
 }
 
@@ -74,6 +77,7 @@ $border-color: #e2e8f0;
     .loading-text {
       color: $text-secondary;
       font-weight: 500;
+      font-size: 0.875rem;
     }
   }
 }
@@ -91,7 +95,7 @@ $border-color: #e2e8f0;
 .form-card {
   background-color: $bg-secondary;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
   border: 1px solid $border-color;
   overflow: hidden;
 }
@@ -99,13 +103,14 @@ $border-color: #e2e8f0;
 .card-header {
   padding: 1.5rem;
   border-bottom: 1px solid $border-color;
+  background-color: $bg-tertiary;
 
   .form-title {
     font-size: 1.5rem;
     font-weight: 700;
     color: $text-primary;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.2;
+    margin: 0 0 0.375rem 0;
+    line-height: 1.3;
   }
 
   .form-subtitle {
@@ -118,15 +123,15 @@ $border-color: #e2e8f0;
 
 // Form
 form {
-  padding: 1.5rem;
+  padding: 1.75rem;
+
+  @media (min-width: 640px) {
+    padding: 2rem;
+  }
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
-
-  &:last-of-type {
-    margin-bottom: 1.5rem;
-  }
+  margin-bottom: 1.25rem;
 }
 
 .form-label {
@@ -135,28 +140,31 @@ form {
   font-size: 0.875rem;
   color: $text-primary;
   margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
 }
 
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.625rem 0.875rem;
   font-size: 0.875rem;
   color: $text-primary;
   background-color: $bg-secondary;
-  border: 1px solid $border-color;
+  border: 1.5px solid $border-color;
   border-radius: 0.5rem;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
   font-family: inherit;
+  line-height: 1.5;
 
   &::placeholder {
-    color: $text-secondary;
+    color: $text-muted;
   }
 
   &:focus {
     outline: none;
     border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    background-color: $bg-secondary;
   }
 
   &:hover:not(:focus) {
@@ -168,14 +176,14 @@ form {
     background-color: #fef2f2;
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
     }
   }
 }
 
 .form-textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 110px;
   line-height: 1.6;
 }
 
@@ -191,20 +199,22 @@ form {
 .form-actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-color;
 
   button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.625rem 1.25rem;
     font-weight: 500;
     font-size: 0.875rem;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s ease;
 
     .icon {
       width: 1rem;
@@ -212,8 +222,8 @@ form {
     }
 
     &:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
 
     &:active:not(:disabled) {
@@ -221,7 +231,7 @@ form {
     }
 
     &:disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
     }
   }
@@ -230,22 +240,200 @@ form {
     background: linear-gradient(to right, $primary-color, $primary-hover);
     color: white;
     flex: 1;
-    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.25);
 
     &:hover:not(:disabled) {
       background: linear-gradient(to right, $primary-hover, #1e40af);
-      box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 8px 16px -3px rgba(37, 99, 235, 0.35);
     }
   }
 
   .btn-cancel {
-    background-color: $bg-tertiary;
+    background-color: $bg-secondary;
     color: $text-secondary;
+    border: 1.5px solid $border-color;
 
     &:hover {
-      background-color: #e2e8f0;
+      background-color: $bg-tertiary;
       color: $text-primary;
+      border-color: #cbd5e1;
     }
+  }
+}
+
+// Modal
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 50;
+  animation: fadeIn 0.2s ease;
+
+  .modal-content {
+    background-color: $bg-secondary;
+    border-radius: 0.875rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    max-width: 26rem;
+    width: 100%;
+    padding: 1.75rem;
+    animation: zoomIn 0.2s ease;
+    border: 1px solid $border-color;
+
+    .modal-icon {
+      width: 3rem;
+      height: 3rem;
+      background-color: #fee2e2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: $error-color;
+      }
+    }
+
+    .modal-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: $text-primary;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-message {
+      color: $text-secondary;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+      font-size: 0.875rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+
+      button {
+        flex: 1;
+        padding: 0.625rem 1rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+          transform: translateY(-1px);
+        }
+      }
+
+      .btn-cancel-modal {
+        background-color: $bg-tertiary;
+        color: $text-secondary;
+        border: 1.5px solid $border-color;
+
+        &:hover {
+          background-color: #e2e8f0;
+          color: $text-primary;
+        }
+      }
+
+      .btn-confirm {
+        background-color: $error-color;
+        color: white;
+        box-shadow: 0 2px 4px rgba(220, 38, 38, 0.25);
+
+        &:hover {
+          background-color: #b91c1c;
+          box-shadow: 0 4px 8px rgba(220, 38, 38, 0.35);
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Toast
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  padding: 1rem 1.25rem;
+  border-radius: 0.625rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  animation: slideInRight 0.3s ease;
+  min-width: 320px;
+  max-width: 420px;
+
+  &.toast-success {
+    background-color: $success-color;
+    color: white;
+  }
+
+  &.toast-error {
+    background-color: $error-color;
+    color: white;
+  }
+
+  .toast-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .toast-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .toast-message {
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -257,5 +445,21 @@ form {
     button {
       width: 100%;
     }
+  }
+
+  .toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    min-width: auto;
+    max-width: none;
+  }
+
+  .card-header {
+    padding: 1.25rem;
+  }
+
+  form {
+    padding: 1.5rem;
   }
 }

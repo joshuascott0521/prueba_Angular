@@ -2,8 +2,16 @@
   <div class="content-wrapper">
     <!-- Back Button -->
     <button class="btn-back" (click)="cancel()">
-      <fa-icon [icon]="faArrowLeft"></fa-icon>
-
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
       Volver
     </button>
 
@@ -11,8 +19,15 @@
     @if (loading) {
     <div class="loading-state">
       <div class="loading-content">
-        <i class="fa-solid fa-spinner fa-spin"></i>
-
+        <svg
+          class="spinner"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+        </svg>
         <p class="loading-text">Cargando publicación...</p>
       </div>
     </div>
@@ -96,8 +111,15 @@
             class="btn-submit"
             [disabled]="form.invalid || loading"
           >
-            <fa-icon [icon]="faCheck"></fa-icon>
-
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
             {{ isEdit ? "Actualizar" : "Crear Publicación" }}
           </button>
           <button type="button" class="btn-cancel" (click)="cancel()">
@@ -108,4 +130,85 @@
     </div>
     }
   </div>
+
+  <!-- Modal de Confirmación -->
+  @if (showModal) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3 class="modal-title">{{ modalTitle }}</h3>
+      <p class="modal-message">{{ modalMessage }}</p>
+      <div class="modal-actions">
+        <button class="btn-cancel-modal" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button class="btn-confirm" (click)="confirmModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Modal de Confirmación -->
+  @if (showModal) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3 class="modal-title">{{ modalTitle }}</h3>
+      <p class="modal-message">{{ modalMessage }}</p>
+      <div class="modal-actions">
+        <button class="btn-cancel-modal" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button class="btn-confirm" (click)="confirmModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+  }
 </div>
+
+<!-- Toast (fuera del container) -->
+@if (showToast) {
+<div class="toast" [ngClass]="toastType">
+  <div class="toast-content">
+    <svg
+      class="toast-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      @if (toastType === 'toast-success') {
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      } @else {
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      }
+    </svg>
+    <p class="toast-message">{{ toastMessage }}</p>
+  </div>
+</div>
+}
