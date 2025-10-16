@@ -1,14 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-post-form',
-//   imports: [],
-//   templateUrl: './post-form.html',
-//   styleUrl: './post-form.scss'
-// })
-// export class PostForm {
-
-// }
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -20,11 +9,14 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
 import { Post } from '../../models/post.model';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 
 @Component({
   selector: 'app-post-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './post-form.html',
   styleUrl: './post-form.scss',
 })
@@ -40,14 +32,14 @@ export class PostForm implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
-
+  faCheck = faCheck;
+  faArrowLeft = faArrowLeft;
   ngOnInit(): void {
     this.form = this.fb.group({
       userId: [null, [Validators.required, Validators.min(1)]],
       title: ['', [Validators.required, Validators.minLength(5)]],
       body: ['', Validators.required],
     });
-
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.isEdit = true;

@@ -5,13 +5,19 @@ import { PostsService } from '../../services/posts.service';
 import { Post } from '../../models/post.model';
 
 // Importamos los componentes visuales personalizados
-import { ConfirmModal } from '../confirm-modal/confirm-modal';
-import { Toast } from '../toast/toast';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleInfo,
+  faPen,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 
 @Component({
   selector: 'app-posts-list',
   standalone: true,
-  imports: [CommonModule, ConfirmModal, Toast],
+  imports: [CommonModule, FontAwesomeModule],
   templateUrl: './posts-list.html',
   styleUrl: './posts-list.scss',
 })
@@ -20,6 +26,11 @@ export class PostsList implements OnInit {
   loading = false;
   error = '';
 
+  faPlus = faPlus;
+  faCircleInfo = faCircleInfo;
+  faEye = faEye;
+  faPen = faPen;
+  faTrash = faTrash;
   // Estado del modal
   showModal = false;
   postToDelete?: number;

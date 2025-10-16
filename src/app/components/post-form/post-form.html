@@ -1,42 +1,111 @@
-<div class="container">
-  <h2>{{ isEdit ? "Editar publicación" : "Nueva publicación" }}</h2>
+<div class="form-container">
+  <div class="content-wrapper">
+    <!-- Back Button -->
+    <button class="btn-back" (click)="cancel()">
+      <fa-icon [icon]="faArrowLeft"></fa-icon>
 
-  @if (loading) {
-  <div class="loading">Cargando publicación...</div>
-  }
+      Volver
+    </button>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div>
-      <label for="userId">User ID</label>
-      <input id="userId" type="number" formControlName="userId" />
-      @if (form.get('userId')?.touched && form.get('userId')?.invalid) {
-      <small class="error"
-        >El User ID es obligatorio y debe ser mayor a 0.</small
-      >
-      }
+    <!-- Loading State -->
+    @if (loading) {
+    <div class="loading-state">
+      <div class="loading-content">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        <p class="loading-text">Cargando publicación...</p>
+      </div>
     </div>
+    }
 
-    <div>
-      <label for="title">Título</label>
-      <input id="title" type="text" formControlName="title" />
-      @if (form.get('title')?.touched && form.get('title')?.invalid) {
-      <small class="error"
-        >El título es obligatorio (mínimo 5 caracteres).</small
-      >
-      }
-    </div>
+    <!-- Form Card -->
+    @if (!loading) {
+    <div class="form-card">
+      <div class="card-header">
+        <h1 class="form-title">
+          {{ isEdit ? "Editar Publicación" : "Nueva Publicación" }}
+        </h1>
+        <p class="form-subtitle">
+          {{
+            isEdit
+              ? "Actualiza los detalles de tu publicación"
+              : "Completa los campos para crear una nueva publicación"
+          }}
+        </p>
+      </div>
 
-    <div>
-      <label for="body">Contenido</label>
-      <textarea id="body" rows="4" formControlName="body"></textarea>
-      @if (form.get('body')?.touched && form.get('body')?.invalid) {
-      <small class="error">El contenido no puede estar vacío.</small>
-      }
-    </div>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label for="userId" class="form-label">ID de Usuario</label>
+          <input
+            id="userId"
+            type="number"
+            formControlName="userId"
+            class="form-input"
+            [class.input-error]="
+              form.get('userId')?.touched && form.get('userId')?.invalid
+            "
+            placeholder="Ingresa el ID del usuario"
+          />
+          @if (form.get('userId')?.touched && form.get('userId')?.invalid) {
+          <small class="error-text"
+            >El ID de usuario es obligatorio y debe ser mayor a 0</small
+          >
+          }
+        </div>
 
-    <div class="buttons">
-      <button type="submit">{{ isEdit ? "Actualizar" : "Crear" }}</button>
-      <button type="button" (click)="cancel()">Cancelar</button>
+        <div class="form-group">
+          <label for="title" class="form-label">Título</label>
+          <input
+            id="title"
+            type="text"
+            formControlName="title"
+            class="form-input"
+            [class.input-error]="
+              form.get('title')?.touched && form.get('title')?.invalid
+            "
+            placeholder="Escribe un título atractivo"
+          />
+          @if (form.get('title')?.touched && form.get('title')?.invalid) {
+          <small class="error-text"
+            >El título es obligatorio (mínimo 5 caracteres)</small
+          >
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="body" class="form-label">Contenido</label>
+          <textarea
+            id="body"
+            rows="6"
+            formControlName="body"
+            class="form-textarea"
+            [class.input-error]="
+              form.get('body')?.touched && form.get('body')?.invalid
+            "
+            placeholder="Escribe el contenido de tu publicación..."
+          ></textarea>
+          @if (form.get('body')?.touched && form.get('body')?.invalid) {
+          <small class="error-text">El contenido no puede estar vacío</small>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn-submit"
+            [disabled]="form.invalid || loading"
+          >
+            <fa-icon [icon]="faCheck"></fa-icon>
+
+            {{ isEdit ? "Actualizar" : "Crear Publicación" }}
+          </button>
+          <button type="button" class="btn-cancel" (click)="cancel()">
+            Cancelar
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
+    }
+  </div>
 </div>

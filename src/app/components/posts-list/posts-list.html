@@ -1,40 +1,146 @@
-<div class="container">
-  <h2>Lista de publicaciones</h2>
+<div class="posts-container">
+  <div class="content-wrapper">
+    <!-- Header -->
+    <div class="header">
+      <h1 class="title">Lista de Publicaciones</h1>
+      <p class="subtitle">Gestiona y visualiza todas tus publicaciones</p>
+    </div>
 
-  <button class="new-btn" (click)="create()">+ Nueva publicación</button>
+    <!-- New Post Button -->
+    <button class="btn-new" (click)="create()">
+      <fa-icon [icon]="faPlus"></fa-icon>
 
-  @if (loading) {
-  <div class="loader">Cargando publicaciones...</div>
-  } @if (error) {
-  <div class="error">{{ error }}</div>
-  } @if (!loading && posts.length === 0) {
-  <p>No hay publicaciones.</p>
-  } @for (post of posts; track post.id) {
-  <div class="card">
-    <h3>{{ post.title }}</h3>
-    <p><strong>User:</strong> {{ post.userId }}</p>
-    <p>{{ post.body }}</p>
+      Nueva Publicación
+    </button>
 
-    <div class="actions">
-      <button class="view" (click)="view(post)">Ver</button>
-      <button class="edit" (click)="edit(post)">Editar</button>
-      <button class="delete" (click)="delete(post.id)">Eliminar</button>
+    <!-- Loading State -->
+    @if (loading) {
+    <div class="loading-state">
+      <div class="loading-content">
+        <svg
+          class="spinner"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+        </svg>
+        <p class="loading-text">Cargando publicaciones...</p>
+      </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @if (error) {
+    <div class="error-state">
+      <fa-icon [icon]="faCircleInfo" style="color: #007bff"></fa-icon>
+
+      <p class="error-text">{{ error }}</p>
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (!loading && posts.length === 0 && !error) {
+    <div class="empty-state">
+      <div class="empty-content">
+        <div class="empty-icon">
+          <fa-icon [icon]="faCircleInfo" style="color: #0d6efd"></fa-icon>
+        </div>
+        <h3 class="empty-title">No hay publicaciones</h3>
+        <p class="empty-description">Comienza creando tu primera publicación</p>
+        <button class="btn-create" (click)="create()">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Crear Publicación
+        </button>
+      </div>
+    </div>
+    }
+
+    <!-- Posts Grid -->
+    @if (!loading && posts.length > 0) {
+    <div class="posts-grid">
+      @for (post of posts; track post.id) {
+      <div class="post-card">
+        <div class="card-content">
+          <div class="card-header">
+            <h3 class="post-title">{{ post.title }}</h3>
+            <span class="user-badge">Usuario {{ post.userId }}</span>
+          </div>
+
+          <p class="post-body">{{ post.body }}</p>
+
+          <!-- Actions -->
+          <div class="actions">
+            <button class="btn-view" (click)="view(post)">
+              <fa-icon [icon]="faEye"></fa-icon>
+
+              Ver
+            </button>
+            <button class="btn-edit" (click)="edit(post)">
+              <fa-icon [icon]="faPen"></fa-icon>
+
+              Editar
+            </button>
+            <button class="btn-delete" (click)="delete(post.id)">
+              <fa-icon [icon]="faTrash"></fa-icon>
+
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Modal -->
+  @if (showModal) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3 class="modal-title">Eliminar Publicación</h3>
+      <p class="modal-message">
+        ¿Estás seguro de que deseas eliminar esta publicación? Esta acción no se
+        puede deshacer.
+      </p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="cancelDelete()">Cancelar</button>
+        <button class="btn-confirm" (click)="confirmDelete()">Eliminar</button>
+      </div>
     </div>
   </div>
   }
 
-  <!-- 🧱 Modal personalizado -->
-  @if (showModal) {
-  <app-confirm-modal
-    title="Eliminar publicación"
-    message="¿Estás seguro de que deseas eliminar esta publicación?"
-    (confirm)="confirmDelete()"
-    (cancel)="cancelDelete()"
-  />
-  }
-
-  <!-- 🍞 Toast de notificación -->
+  <!-- Toast -->
   @if (showToast) {
-  <app-toast [message]="toastMessage" [type]="toastType" />
+  <div
+    class="toast"
+    [class.toast-success]="toastType === 'success'"
+    [class.toast-error]="toastType === 'error'"
+  >
+    <p class="toast-message">{{ toastMessage }}</p>
+  </div>
   }
 </div>
