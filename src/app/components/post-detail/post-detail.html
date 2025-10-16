@@ -1,1 +1,125 @@
-<p>post-detail works!</p>
+<div class="post-detail-container">
+  <div class="content-wrapper">
+    <!-- Back Button -->
+    <button class="btn-back" (click)="goBack()">
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Volver
+    </button>
+
+    <!-- Loading State -->
+    @if (loading) {
+    <div class="loading-state">
+      <div class="loading-content">
+        <svg
+          class="spinner"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+        </svg>
+        <p class="loading-text">Cargando publicación...</p>
+      </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @if (error) {
+    <div class="error-state">
+      <svg
+        class="icon-error"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <p class="error-text">{{ error }}</p>
+    </div>
+    }
+
+    <!-- Post Detail Card -->
+    @if (!loading && post) {
+    <div class="detail-card">
+      <!-- Header -->
+      <div class="card-header">
+        <div class="header-badge">
+          <svg
+            class="badge-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            ></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span>Publicación #{{ post.id }}</span>
+        </div>
+        <span class="user-badge">
+          <svg
+            class="user-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Usuario {{ post.userId }}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="post-title">{{ post.title }}</h1>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+
+      <!-- Body Content -->
+      <div class="post-content">
+        <h3 class="content-label">Contenido</h3>
+        <p class="post-body">{{ post.body }}</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn-edit" (click)="editPost()">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+            ></path>
+            <path
+              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+            ></path>
+          </svg>
+          Editar Publicación
+        </button>
+      </div>
+    </div>
+
+    }
+  </div>
+</div>
