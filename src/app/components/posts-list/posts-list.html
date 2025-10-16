@@ -1,1 +1,40 @@
-<p>posts-list works!</p>
+<div class="container">
+  <h2>Lista de publicaciones</h2>
+
+  <button class="new-btn" (click)="create()">+ Nueva publicación</button>
+
+  @if (loading) {
+  <div class="loader">Cargando publicaciones...</div>
+  } @if (error) {
+  <div class="error">{{ error }}</div>
+  } @if (!loading && posts.length === 0) {
+  <p>No hay publicaciones.</p>
+  } @for (post of posts; track post.id) {
+  <div class="card">
+    <h3>{{ post.title }}</h3>
+    <p><strong>User:</strong> {{ post.userId }}</p>
+    <p>{{ post.body }}</p>
+
+    <div class="actions">
+      <button class="view" (click)="view(post)">Ver</button>
+      <button class="edit" (click)="edit(post)">Editar</button>
+      <button class="delete" (click)="delete(post.id)">Eliminar</button>
+    </div>
+  </div>
+  }
+
+  <!-- 🧱 Modal personalizado -->
+  @if (showModal) {
+  <app-confirm-modal
+    title="Eliminar publicación"
+    message="¿Estás seguro de que deseas eliminar esta publicación?"
+    (confirm)="confirmDelete()"
+    (cancel)="cancelDelete()"
+  />
+  }
+
+  <!-- 🍞 Toast de notificación -->
+  @if (showToast) {
+  <app-toast [message]="toastMessage" [type]="toastType" />
+  }
+</div>

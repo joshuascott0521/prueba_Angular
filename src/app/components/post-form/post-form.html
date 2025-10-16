@@ -1,1 +1,42 @@
-<p>post-form works!</p>
+<div class="container">
+  <h2>{{ isEdit ? "Editar publicación" : "Nueva publicación" }}</h2>
+
+  @if (loading) {
+  <div class="loading">Cargando publicación...</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label for="userId">User ID</label>
+      <input id="userId" type="number" formControlName="userId" />
+      @if (form.get('userId')?.touched && form.get('userId')?.invalid) {
+      <small class="error"
+        >El User ID es obligatorio y debe ser mayor a 0.</small
+      >
+      }
+    </div>
+
+    <div>
+      <label for="title">Título</label>
+      <input id="title" type="text" formControlName="title" />
+      @if (form.get('title')?.touched && form.get('title')?.invalid) {
+      <small class="error"
+        >El título es obligatorio (mínimo 5 caracteres).</small
+      >
+      }
+    </div>
+
+    <div>
+      <label for="body">Contenido</label>
+      <textarea id="body" rows="4" formControlName="body"></textarea>
+      @if (form.get('body')?.touched && form.get('body')?.invalid) {
+      <small class="error">El contenido no puede estar vacío.</small>
+      }
+    </div>
+
+    <div class="buttons">
+      <button type="submit">{{ isEdit ? "Actualizar" : "Crear" }}</button>
+      <button type="button" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</div>
